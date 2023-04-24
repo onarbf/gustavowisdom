@@ -7,7 +7,7 @@ import { debug } from 'console';
 
 loadEnvConfig("") 
 
-const generateEmbeddings = async (contents: []) => {
+const generateEmbeddings = async (contents: any) => {
 
     const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
