@@ -4,6 +4,9 @@ import {useState} from 'react';
 import { Answer } from "@/components/answer/Answer";
 import { RefList } from "@/components/refList/RefList";
 
+console.log("process.env.NEXT_PUBLIC_SUPABASE_URL",process.env.NEXT_PUBLIC_SUPABASE_URL);
+console.log("process.env.NEXT_PUBLIC_SUPABASE_URL",process.env.SUPABASE_SERVICE_ROLE_KEY);
+
 export default function Home() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
@@ -26,7 +29,7 @@ export default function Home() {
       setLoading(false)
       return;
     }
-
+    
     const results: GBChunk[] = await searchResponse.json();
     console.log('results',results);
     setChunks(results);
