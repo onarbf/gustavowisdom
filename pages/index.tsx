@@ -28,7 +28,7 @@ export default function Home() {
     }
 
     const results: GBChunk[] = await searchResponse.json();
-    
+    console.log('results',results);
     setChunks(results);
     
     const prompt = endent`
@@ -36,7 +36,6 @@ export default function Home() {
     
     ${results.map((chunk)=>chunk.chunk_content).join("\n")}
     `;
-    console.log("query");
 
     const answerResponse = await fetch("/api/answer",{
       method: "POST",
@@ -81,9 +80,7 @@ export default function Home() {
       type="text"
       placeholder='Pregúntale algo a Don Gustavo'
       value={query}
-      onChange={(e)=> {
-        setQuery(e.target.value) 
-        console.log(query)}}
+      onChange={(e)=> { setQuery(e.target.value) }}
       />
       <button
       className="rounded mt-6 p-2 bg-indigo-800 text-white"

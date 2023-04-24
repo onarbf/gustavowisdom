@@ -18,7 +18,7 @@ export const RefList: FC<Props> = ({references})=>{
                 <small className="pl-4">{chunk.content_title}</small>
                 <small className="pr-4">{chunk.content_date}</small>
             </div>
-            <div><p>{chunk.content}</p></div>
+            <div><p>{chunk.chunk_content}</p></div>
         </div>
     })
     
