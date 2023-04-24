@@ -11,7 +11,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const handleAnswer = async ()=>{
+    setAnswer("");
     setLoading(true);
+
     const searchResponse = await fetch('/api/search', {
       method: "POST",
       headers: {
@@ -26,7 +28,7 @@ export default function Home() {
     }
 
     const results: GBChunk[] = await searchResponse.json();
-    console.log(results);
+    
     setChunks(results);
     
     const prompt = endent`
@@ -34,7 +36,8 @@ export default function Home() {
     
     ${results.map((chunk)=>chunk.chunk_content).join("\n")}
     `;
-    
+    console.log("query");
+
     const answerResponse = await fetch("/api/answer",{
       method: "POST",
       headers: {
@@ -78,7 +81,9 @@ export default function Home() {
       type="text"
       placeholder='Pregúntale algo a Don Gustavo'
       value={query}
-      onChange={(e)=> setQuery(e.target.value)}
+      onChange={(e)=> {
+        setQuery(e.target.value) 
+        console.log(query)}}
       />
       <button
       className="rounded mt-6 p-2 bg-indigo-800 text-white"
@@ -88,7 +93,7 @@ export default function Home() {
       </button>
 
       <div className="mt-6">
-        {loading ? <div>Loading...</div> : <Answer text={answer}/>}
+        {loading ? <div>Cargando... Paciencia, nos puede llevar hasta un minuto encontrar la respuesta adecuada.</div> : <Answer text={answer}/>}
       </div>
         <RefList references={chunks}/>
     </div>

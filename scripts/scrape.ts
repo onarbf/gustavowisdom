@@ -39,12 +39,11 @@ const getContent = async (url: string, title:string)=>{
         tokens: 0,
         chunks: [],
       };
-
     const html = await axios(process.env.SCRAPE_URL + url);
     const $ = cheerio.load(html.data);
 
-    const date = $('h3').text();
-
+    const date = $('article .ac:last-child').text().replace('Gustavo Bueno, ','');
+    console.log(date);
     let content = "";
     let contents = $('section p'); //remove whitespaces and footnotes.
 
@@ -52,7 +51,7 @@ const getContent = async (url: string, title:string)=>{
     content = content + `${$(c).text()}`;
     })
     
-    content = content.replace(/{\d+}/g,"").replace(/{\n}/g,"")
+    content = content.replace(/{\d+}/g,"").replace(/{\n}/g,"").replace(/(&c)/g, "");
 
     const split = content.match(/([A-Z][a-z]+ [0-9]{4})/); //remove dates
     let dateStr = "";
@@ -142,7 +141,6 @@ const getChunks = async (GBcontent: GBContent)=>{
         const link = links[i];
         const GBContent = await getContent(link.url, link.title);
         const chunkedContent = await getChunks(GBContent);
-        console.log(chunkedContent)
         contents.push(chunkedContent);
     }
 
