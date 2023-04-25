@@ -13,16 +13,20 @@ export const Answer: FC<Props> = ({text}) =>{
     }, [text])
 
     return (
-        <div>
-            {words.map((word, index)=>(
-                <span
-                key = {index}
-                className={styles.fadeIn}
-                style={{animationDelay: `${index *0.1}s`}}
-                >
-                    {word}{" "}
-                </span>
-            ))}
+        <div className="">
+            {text ? <div className="text-xl mt-4 ">Respuesta:</div> : ""}
+            {text ? <div className="border p-4 rounded">
+                
+                {words.map((word, index)=>(
+                    <span
+                    key = {index}
+                    className={styles.fadeIn + " font-l"}
+                    style={{animationDelay: `${index *0.1}s`}}
+                    >
+                        {word}{" "}
+                    </span>
+                ))}
+            </div> : ""}
         </div>
     )
 }

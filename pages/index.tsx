@@ -4,9 +4,6 @@ import {useState} from 'react';
 import { Answer } from "@/components/answer/Answer";
 import { RefList } from "@/components/refList/RefList";
 
-console.log("process.env.NEXT_PUBLIC_SUPABASE_URL",process.env.NEXT_PUBLIC_SUPABASE_URL);
-console.log("process.env.NEXT_PUBLIC_SUPABASE_URL",process.env.SUPABASE_SERVICE_ROLE_KEY);
-
 export default function Home() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
@@ -76,27 +73,30 @@ export default function Home() {
   }
 
   return (
-    <div className="flex justify-center mt-6">
-    <div className=" flex flex-col w-1/2  rounded border p-6">
-      <input
-      className="border p-2 rounded"
-      type="text"
-      placeholder='Pregúntale algo a Don Gustavo'
-      value={query}
-      onChange={(e)=> { setQuery(e.target.value) }}
-      />
-      <button
-      className="rounded mt-6 p-2 bg-indigo-800 text-white"
-      onClick={handleAnswer}
-      >
-        Submit
-      </button>
+    <div className="flex min-w-full  justify-center">
+      <div className=" flex flex-col rounded border p-6 w-full m-4  lg:m-0 lg:w-1/2 ">
+        <div>
+          <h1 className="text-3xl text-center mt-6 mb-6">GPTBueno v1</h1>
+        </div>
+        <input
+        className="border p-2 rounded"
+        type="text"
+        placeholder='Pregúntale algo a Don Gustavo'
+        value={query}
+        onChange={(e)=> { setQuery(e.target.value) }}
+        />
+        <button
+        className="rounded mt-6 p-2 bg-indigo-800 text-white"
+        onClick={handleAnswer}
+        >
+          Submit
+        </button>
 
-      <div className="mt-6">
-        {loading ? <div>Cargando... Paciencia, nos puede llevar hasta un minuto encontrar la respuesta adecuada.</div> : <Answer text={answer}/>}
+        <div className="mt-6">
+          {loading ? <div>Cargando... Paciencia, nos puede llevar hasta un minuto encontrar la respuesta adecuada.</div> : <Answer text={answer}/>}
+        </div>
+          {chunks.length === 0 ? "": <RefList references={chunks}/>}
       </div>
-        <RefList references={chunks}/>
-    </div>
     </div>
   )
 }
